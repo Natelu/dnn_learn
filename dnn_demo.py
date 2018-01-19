@@ -1,3 +1,6 @@
+'''
+第一个dnn Demo，多多学习
+'''
 import numpy as np
 from matplotlib import pyplot as plt
 import h5py
