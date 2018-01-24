@@ -93,7 +93,7 @@ def L_model_forward(X,parameters):
     return AL,caches
 
 def cal_loss(AL,Y):
-    m=Y.shape[1]
+    m=Y.shape[0]
     cost=-np.sum(Y*np.log(AL)+(1-Y)*np.log(1-AL))/m
     cost=np.squeeze(cost)
     assert (cost.shape==())
@@ -123,7 +123,7 @@ def linear_activation_backward(dA,cache,activation):
     :return: 
     '''
     linear_cache,activation_cache=cache
-    if activation=="sigmoid":
+    if activation=="sigmod":
         dZ=dnn_utils_v2.sigmoid_backward(dA,activation_cache)
         dA_prev,dW,db=linear_backward(dZ,linear_cache)
     elif activation== "relu":
@@ -176,5 +176,5 @@ def update_parameters(parameters,grades,learning_rate):
     L=len(parameters)//2  #网络层数
     for l in range(L):
         parameters["W"+str(l+1)]=parameters["W"+str(l+1)]-learning_rate*grades["dW"+str(l+1)]
-        parameters["b"+str(l+1)]=parameters["b"+str(l+1)]-learning_rate*grades["b"+str(l+1)]
+        parameters["b"+str(l+1)]=parameters["b"+str(l+1)]-learning_rate*grades["db"+str(l+1)]
     return parameters
